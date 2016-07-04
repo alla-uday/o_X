@@ -12,7 +12,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
         // Override point for customization after application launch.
+        if let email = defaults.objectForKey("currentUserEmail") as? String,
+            password = defaults.objectForKey("currentUserPassword") as? String {
+                UserController.sharedInstance.register(email, password: password) { (user: User?, text: String?) -> Void in
+                    if(user == nil){
+                        
+                        
+                    }
+                    else {
+                        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                        let b = mainStoryBoard.instantiateInitialViewController()
+                        let application = UIApplication.sharedApplication()
+                        let window = application.keyWindow
+                        window?.rootViewController = b
+                    }
+                }
+
+        }
+
+        
+        
+        
+        
         return true
     }
 
